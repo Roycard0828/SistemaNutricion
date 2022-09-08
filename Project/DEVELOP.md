@@ -15,3 +15,10 @@ Each iteration will realize a tangible part of the project.
 - Iteration 2: Medical history of the patients.
 - Iteration 3: meals plan for the patients.
 - Iteration 4: Appointments logic.
+
+### Iteration 1.
+In this iteration will be developed all the patients logic, including the following steps.
+- Create the patients model.
+- Create the patients' view with all the necesary methods (create, read, update, delete, readAll).
+- Create the patients tempaltes and vinculate with the views.
+- Make the necesary test. 
