@@ -1,0 +1,19 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<div>
+    <h2>{{patient.nombre}} {{patient.apellidos}}</h2>
+    <div>
+        <h3>Datos generales</h3>
+        <p>Edad: </p>
+        <p>{{patient.edad}}</p>
+        <p>Direccion</p>
+        <p>{{patient.direccion}}</p>
+        <p>Telefono: </p>
+        <p>{{patient.telefono}}</p>
+        <p>Ocupacion</p>
+        <p>{{patient.ocupacion}}</p>
+    </div>
+</div>
+
+{% endblock content%}

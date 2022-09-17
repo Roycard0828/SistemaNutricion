@@ -12,7 +12,7 @@ class Patient(models.Model):
     ocupacion = models.CharField(max_length=50)
 
     def __str__(self) -> str:
-        return "Paciente con nombre" + self.nombre
+        return "Paciente con nombre: " + self.nombre
     
     class Meta:
         ordering = ['-created']
