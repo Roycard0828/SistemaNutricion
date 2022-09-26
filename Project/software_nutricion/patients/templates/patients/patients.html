@@ -1,0 +1,22 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    <div class="patients-container">
+        <div>
+            <a href="{% url 'create_patient' %}">Agregar paciente</a>
+        </div>
+        <hr>
+        {% for patient in patients %}
+        <div>
+            {{patient.nombre}} | {{patient.apellidos}}
+            <br>
+            {{patient.edad}} | {{patient.ocupacion}}
+            <a href="{% url 'get_patient' patient.id%}">Ver</a>
+        </div>
+        <br>
+        <hr>
+        {% endfor %}
+    </div>
+
+{% endblock content %}

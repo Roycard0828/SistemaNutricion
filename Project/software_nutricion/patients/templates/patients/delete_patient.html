@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {% if object == None%}
+        <p>Paciente no encontrado</p>
+    {% else %}
+        <p>¿Estas seguro de eliminar el paciente: "{{object.nombre }} {{object.apellidos}}"?</p>
+        <a href="{{request.META.HTTP_REFERER}}">Regresar</a>
+        <input type="submit" value="Confirm">
+    {% endif %}
+</form>
+
+{% endblock content%}
