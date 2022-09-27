@@ -1,4 +1,5 @@
 from http.client import OK, HTTPResponse
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 
@@ -15,13 +16,19 @@ def create_patient(request):
         if form.is_valid():
             patient = form.save()
             return redirect('patients')
+        else:
+            return HTTPResponse(status=404)
 
     context = {'form':form}
     return render(request, 'patients/patient_form.html', context)
 
 def get_patient(request, pk):
-    patient = Patient.objects.get(pk=pk)
-    context = {'patient':patient}
+    try:
+        patient = Patient.objects.get(pk=pk)
+        context = {'patient':patient}
+    except:
+        return HttpResponse(status=404)
+        
     return render(request, 'patients/patient_profile.html', context)
 
 def delete_patient(request, pk):
@@ -31,16 +38,15 @@ def delete_patient(request, pk):
 
         if request.method == 'POST':                  
             patient.delete()                
-            return redirect('patients') # NOTA: redigir al main
-
-        context = {'object':patient}
+            context = {'object':patient}
+            return redirect('patients') # NOTA: redigir al main        
     except:
         context = {'object':None}
+        return HttpResponse(status=404)
 
     return render(request, 'patients/delete_patient.html', context)
 
-
-def update_patients(request, pk):
+def update_patient(request, pk):
         
     try:
         patient = Patient.objects.get(pk=pk)
@@ -53,7 +59,7 @@ def update_patients(request, pk):
                 form.save()
                 return redirect('patients')
     except:
-        return HTTPResponse('Patient not found')
+        return HttpResponse(status=404)
 
     context = {'form':form}
 
