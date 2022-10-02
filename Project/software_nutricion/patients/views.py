@@ -35,10 +35,10 @@ def delete_patient(request, pk):
 
     try:
         patient = Patient.objects.get(pk=pk)
+        context = {'object':patient}
 
         if request.method == 'POST':                  
             patient.delete()                
-            context = {'object':patient}
             return redirect('patients') # NOTA: redigir al main        
     except:
         context = {'object':None}
@@ -58,6 +58,7 @@ def update_patient(request, pk):
             if form.is_valid():
                 form.save()
                 return redirect('patients')
+                #return redirect('patient', pk=patient.id)
     except:
         return HttpResponse(status=404)
 

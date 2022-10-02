@@ -8,8 +8,8 @@
         <p>Paciente no encontrado</p>
     {% else %}
         <p>¿Estas seguro de eliminar el paciente: "{{object.nombre }} {{object.apellidos}}"?</p>
-        <a href="{{request.META.HTTP_REFERER}}">Regresar</a>
-        <input type="submit" value="Confirm">
+        <input class="btn btn-dark" type="button" onclick="history.back()" name="volver atrás" value="Regresar">
+        <input type="submit" class="btn btn-warning" value="Confirmar">
     {% endif %}
 </form>
 

@@ -1,22 +1,77 @@
 {% extends 'main.html' %}
 
 {% block content %}
+    
+<div class="container">
 
-    <div class="patients-container">
-        <div>
-            <a href="{% url 'create_patient' %}">Agregar paciente</a>
-        </div>
-        <hr>
-        {% for patient in patients %}
-        <div>
-            {{patient.nombre}} | {{patient.apellidos}}
-            <br>
-            {{patient.edad}} | {{patient.ocupacion}}
-            <a href="{% url 'get_patient' patient.id%}">Ver</a>
-        </div>
-        <br>
-        <hr>
-        {% endfor %}
-    </div>
+    <a href="{% url 'create_patient'%}" class="btn btn-primary active" role="button" aria-pressed="true">Agregar paciente</a>
+    <hr>
 
+    <script type="text/javascript">
+        (function(document) {
+          'use strict';
+    
+          var LightTableFilter = (function(Arr) {
+    
+            var _input;
+    
+            function _onInputEvent(e) {
+              _input = e.target;
+              var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+              Arr.forEach.call(tables, function(table) {
+                Arr.forEach.call(table.tBodies, function(tbody) {
+                  Arr.forEach.call(tbody.rows, _filter);
+                });
+              });
+            }
+    
+            function _filter(row) {
+              var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+              row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+            }
+    
+            return {
+              init: function() {
+                var inputs = document.getElementsByClassName('light-table-filter');
+                Arr.forEach.call(inputs, function(input) {
+                  input.oninput = _onInputEvent;
+                });
+              }
+            };
+          })(Array.prototype);
+    
+          document.addEventListener('readystatechange', function() {
+            if (document.readyState === 'complete') {
+              LightTableFilter.init();
+            }
+          });
+    
+        })(document);
+    </script>
+    
+    <input class="form-control col-md-3 light-table-filter" data-table="order-table" type="text" placeholder="Search..">
+
+    <table id="patients-table" class="order-table table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Edad</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for patient in patients %}
+                <tr>
+                    <td>{{patient.nombre}}</td>
+                    <td>{{patient.apellidos}}</td>
+                    <td>{{patient.edad}}</td>
+                    <td>
+                        <a href="{% url 'get_patient' patient.id%}" class="btn btn-info active" role="button" aria-pressed="true">Ver</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock content %}

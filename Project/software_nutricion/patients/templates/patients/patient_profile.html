@@ -1,24 +1,80 @@
 {% extends 'main.html' %}
 {% block content %}
 
-<div>
-    <h2>{{patient.nombre}} {{patient.apellidos}}</h2>
+<div class="container-lg">
+    
+    <a href="{% url 'patients'%}" class="btn btn-dark active" role="button" aria-pressed="true">Regresar</a>
+    <hr>
+    <div class="row">
+        <h2>{{patient.nombre}} {{patient.apellidos}}</h2>
+    </div>
+    <br>
+    <h4>Datos generales</h4> 
+    <br>       
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-4">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Nombre completo</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">{{patient.nombre}} {{patient.apellidos}}</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Edad</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">{{patient.edad}}</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Telefono</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">{{patient.telefono}}</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Direccion</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">{{patient.direccion}}</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Ocupacion</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">{{patient.ocupacion}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-auto">
+            <a href="{% url 'update_patient' patient.id%}" class="btn btn-primary btn active" role="button" aria-pressed="true">Actualizar</a>
+        </div>
+        <div class="col-md-auto">
+            <a href="{% url 'delete_patient' patient.id%}" class="btn btn-danger btn active" role="button" aria-pressed="true">Eliminar</a>
+        </div>
+    </div>
     <div>
-        <h3>Datos generales</h3>
-        <p>Edad: </p>
-        <p>{{patient.edad}}</p>
-        <p>Direccion</p>
-        <p>{{patient.direccion}}</p>
-        <p>Telefono: </p>
-        <p>{{patient.telefono}}</p>
-        <p>Ocupacion</p>
-        <p>{{patient.ocupacion}}</p>
 
-        <a href="{% url 'delete_patient' patient.id%}">Eliminar</a>
-        <a href="{% url 'update_patient' patient.id %}">Actualizar</a>
-        <br>
-        <a href="{{request.META.HTTP_REFERER}}">Regresar</a>
-
+    </div>
+    <div>
+        
     </div>
 </div>
 
