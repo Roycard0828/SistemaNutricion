@@ -22,3 +22,5 @@ In this iteration will be developed all the patients logic, including the follow
 - Create the patients' view with all the necesary methods (create, read, update, delete, readAll).
 - Create the patients tempaltes and vinculate with the views.
 - Make the necesary test. 
+- Iteration 1 Finished 3/09/22
+

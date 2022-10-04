@@ -1,1 +1,6 @@
 Project/env
+Project/software_nutricion/static
+
+**/migrations 
+**/__pycache__
+**__init__
