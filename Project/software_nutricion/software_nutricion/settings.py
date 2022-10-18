@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'patients.apps.PatientsConfig',
+    'clinical_history.apps.ClinicalHistoryConfig',
 
     "crispy_forms",
     "crispy_bootstrap5",   
