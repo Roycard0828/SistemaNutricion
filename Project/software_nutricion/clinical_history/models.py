@@ -64,18 +64,18 @@ class AntecedenteGineticoObsetrico(models.Model):
         primary_key=True,
     )
     embarazo = models.BooleanField(default=False)
-    semamanas_embarazo = models.IntegerField(default=0)
+    semamanas_embarazo = models.IntegerField(default=0,  null=True)
     EMBARAZO_CHOICE = (
         ("Aborto", "Aborto"),
         ("Carto", "Parto"),
         ("Cesarea", "Cesarea")
     )
-    modo_embarazo = models.CharField(choices=EMBARAZO_CHOICE, default="")
+    modo_embarazo = models.CharField(choices=EMBARAZO_CHOICE, max_length=50)
     MENSTRUACION_CHOICE = (
         ("Regulares", "Regulares"),
         ("Irregulares", "Irregulares")
     )
-    periodo_menstrual = models.CharField(choices=MENSTRUACION_CHOICE, null=True)
+    periodo_menstrual = models.CharField(choices=MENSTRUACION_CHOICE, null=True, default="", max_length=50)
     dias_sangrado = models.IntegerField(default=0)
     uso_anticonceptivos = models.BooleanField(default=False)
     nombre_anticonceptivo = models.CharField(max_length=30, default="")
@@ -101,7 +101,7 @@ class Tratamiento(models.Model):
         ("Antiacidos", "Antiacidos"),
         ("Analgesicos", "Analgesicos")
     )
-    toma = models.CharField(null=True, choices=TOMA_CHOICES)
+    toma = models.CharField(null=True, choices=TOMA_CHOICES, default="", max_length=50)
     tratamiento_haa = models.CharField(max_length=30, default="")
     suplementos = models.CharField(max_length=30, default="no")
 
@@ -130,15 +130,16 @@ class AntecedentePersonalNoPatologico(models.Model):
         ("Parto", "Parto"),
         ("Cesarea", "Cesarea")
     )
-    via_nacimiento = models.CharField(choices=NACIMIENTO_CHOICES, null=True)
+    via_nacimiento = models.CharField(choices=NACIMIENTO_CHOICES, null=True, max_length=20)
     peso = models.IntegerField(default=0)
     semanas_gestacion = models.IntegerField(default=0)
     contacto_momento = models.BooleanField(default=False)
     lactancia_materna = models.BooleanField(default=False)
     tiempo_lactancia = models.CharField(max_length=10, default="no")
+    exclusiva = models.BooleanField(default=False)
     momento_combinacion = models.CharField(max_length=20, default="")
     formula = models.CharField(max_length=20, default="")
-    meses_abstraccion = models.IntegerField(default=0)
+    meses_ablactacion = models.IntegerField(default=0)
 
 class SintomasActuales(models.Model):
     historial_clinico = models.OneToOneField(
@@ -223,14 +224,14 @@ class IndicadoresDieteticos(models.Model):
     tipo_grasa = models.CharField(max_length=20)
     tratamiento_control_peso = models.BooleanField(default=False)
     veces_tratamiento = models.IntegerField()
-    tipo_dieta = models.CharField()
-    hace_cuanto = models.CharField()
-    razon = models.CharField()
-    apego = models.CharField()
-    resultado_esperado = models.CharField()
-    medicamento_bajar_peso = models.CharField()
-    fluctuacion_peso = models.CharField()
-    cirugia_peso = models.CharField()
+    tipo_dieta = models.CharField(max_length=50)
+    hace_cuanto = models.CharField(max_length=50)
+    razon = models.CharField(max_length=50)
+    apego = models.CharField(max_length=50)
+    resultado_esperado = models.CharField(max_length=50)
+    medicamento_bajar_peso = models.CharField(max_length=50)
+    fluctuacion_peso = models.CharField(max_length=50)
+    cirugia_peso = models.CharField(max_length=50)
     consumo_agua_simple = models.CharField(max_length=10)
 
 class Recordatorio24Horas(models.Model):
@@ -283,7 +284,7 @@ class Metas(models.Model):
     )
     corto_plazo = models.TextField(blank=True)
     largo_plazo = models.TextField(blank=True)
-    red_apoyo = models.CharField()
+    red_apoyo = models.CharField(max_length=100)
     apoyo_familiar = models.TextField(blank=True)
     ventajas_modificacion = models.TextField(blank=True)
     desventajas_modificacion = models.TextField(blank=True)
