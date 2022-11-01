@@ -70,9 +70,24 @@
             <a href="{% url 'delete_patient' patient.id%}" class="btn btn-danger btn active" role="button" aria-pressed="true">Eliminar</a>
         </div>
     </div>
+    <br>
+    <br>
     <div>
-
+      <h4>Historial Clinico</h4>
+      {% if has_clinical_history %}
+        {% if finished %}
+          <p>Historial clinico terminado</p>
+          <a href="/patients" class="btn btn-primary btn active" role="button" aria-pressed="true">Ver historial clinico</a>
+        {% else %}
+          <p>Paso actual: {{step}}</p>
+          <a href="{% url 'continue_clinical_history' patient.id%}" class="btn btn-primary btn active" role="button" aria-pressed="true">Terminar</a>    
+        {% endif %}
+      {% else %}
+        <a href="/clinical_history/create/main" class="btn btn-primary btn active" role="button" aria-pressed="true">Crear historial clinico</a>  
+      {% endif %}
     </div>
+    <br>
+    <br>
     <div>
         
     </div>

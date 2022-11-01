@@ -1,13 +1,13 @@
 from enum import Enum 
 
 class ClinicalHistoryEnumeration(Enum):
-    MOTIVO_CONSULTA = "Motivo de consulta",
-    DX_MEDICO = "DX Medico",
+    MOTIVO_CONSULTA = "Motivo de consulta"
+    DX_MEDICO = "DX Medico"
     ESTADO_SALUD = "Estado de Salud"
 
 class AntecedenteFamiliarPatologicoEnumeration(Enum):
-    PATERNO =  "Antecedente paterno",
-    MATERNO =  "Antecedente materno",
+    PATERNO =  "Antecedente paterno"
+    MATERNO =  "Antecedente materno"
 
 class AntecedentePersonalPatologicoEnumeration(Enum):
     ENFERMEDADES_INFECCIOSAS =  "Enfermedades infecciosas"
@@ -45,37 +45,37 @@ class AntecedenteGineticoObsetricoEnumeration(Enum):
     NOMBRE = "Nombre"
 
 class TratamientoEnumeration(Enum):
-    MEDICAMENTOS = "Medicamentos",
-    TOMA = "¿Toma alguna de las siguiente opciones? Laxantes, Diureticos, Antiacidos, Analgesicos",
-    TRATAMIENTO_HAA = "Tratamientos homeopaticos, alopatas o alternativa",
+    MEDICAMENTOS = "Medicamentos"
+    TOMA = "¿Toma alguna de las siguiente opciones? Laxantes, Diureticos, Antiacidos, Analgesicos"
+    TRATAMIENTO_HAA = "Tratamientos homeopaticos, alopatas o alternativa"
     SUPLEMENTOS = "¿Toma algun suplemento? ¿Cual?"
 
 class EfectoFarmacoNutricionEnumeration(Enum):
-    CAMBIO_GUSTO = "Cambio de gusto",
-    CAMBIO_APETITO = "Cambio de apetito",
-    BOCA_SECA = "Boca de seca",
-    NAUSEAS = "Nauseas",
-    DIARREA = "Diarrea",
-    CONSTIPACION = "Constipacion",
-    HIPERGLUCEMIA = "Hiperglucemia",
+    CAMBIO_GUSTO = "Cambio de gusto"
+    CAMBIO_APETITO = "Cambio de apetito"
+    BOCA_SECA = "Boca de seca"
+    NAUSEAS = "Nauseas"
+    DIARREA = "Diarrea"
+    CONSTIPACION = "Constipacion"
+    HIPERGLUCEMIA = "Hiperglucemia"
     MODIFICACION_ABSORCION_LIPIDOS = "Modificación de absorcion de lipidos"
 
 class AntecedentePersonalNoPatologicoEnumeration(Enum):
-    VIA_NACIMIENTO = "Via de nacimiento",
-    PESO = "Peso al nacer",
-    SEMANAS_GESTACION = "Semanas de gestacion",
-    CONTACTO_MOMENTO = "Primer contacto en el momento",
-    LACTANCIA_MATERNA = "Hubo lactancia materna",
-    TIEMPO_LACTANCIA = "¿Por cuanto tiempo?",
-    EXCLUSIVA = "¿Fue exclusiva?",
-    MOMENTO_COMBINACION = "¿En que momento de combino con la formula?",
-    FORMULA = "¿Que tipo de formula se uso?",
+    VIA_NACIMIENTO = "Via de nacimiento"
+    PESO = "Peso al nacer"
+    SEMANAS_GESTACION = "Semanas de gestacion"
+    CONTACTO_MOMENTO = "Primer contacto en el momento"
+    LACTANCIA_MATERNA = "Hubo lactancia materna"
+    TIEMPO_LACTANCIA = "¿Por cuanto tiempo?"
+    EXCLUSIVA = "¿Fue exclusiva?"
+    MOMENTO_COMBINACION = "¿En que momento de combino con la formula?"
+    FORMULA = "¿Que tipo de formula se uso?"
     MESES_ABLACTACION = "¿A los cuantos meses fue la ablactacion?"
 
 class SintomasActualesEnumeration(Enum):
-    DENTADURA_COMPLETA = "Dentadura completa",
-    VECES_BAÑO = "¿Cuantas veces va al baño al dia?",
-    CALIDAD_HECES = "Calidad de heces",
+    DENTADURA_COMPLETA = "Dentadura completa"
+    VECES_BAÑO = "¿Cuantas veces va al baño al dia?"
+    CALIDAD_HECES = "Calidad de heces"
     ALTERACION_GASTROINTESTINAL = "Alteracion Gastrointestinal"
 
 class AntecedentesClinicoAnormalesEnumeration(Enum):
@@ -123,7 +123,7 @@ class IndicadoresDieteticosEnumeration(Enum):
     PICOTEOS = "Usted tiene picoteos"
     SAL_EXTRA = "¿Agregas sal a la comida ya preparada?"
     TIPO_GRASA = "¿Que grasa utilizan en casa para preparar las comidas?"
-    TRATAMIENTO_CONTROL_PESO ="¿Ha llevado un tratamiento para control de peso?",
+    TRATAMIENTO_CONTROL_PESO ="¿Ha llevado un tratamiento para control de peso?"
     VECES_TRATAMIENTO ="¿Cuántas veces?"
     TIPO_DIETA = "¿Qué tipo de dieta? "
     HACE_CUANTO ="Hace cuanto"

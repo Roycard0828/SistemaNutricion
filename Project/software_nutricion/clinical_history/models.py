@@ -8,17 +8,19 @@ from patients.models import Patient
 
 class ClinicalHistory(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    paciente = models.OneToOneField(
+    finished = models.BooleanField(default=False)
+    steps = models.IntegerField(default=0)
+    patient = models.OneToOneField(
         Patient,
         on_delete=models.CASCADE,
         primary_key=True,
     )
-    motivo_consulta = models.TextField(blank=True)
+    motivo_consulta = models.TextField(max_length=200)
     dx_medico = models.CharField(max_length=200)
     estado_salud = models.CharField(max_length=200)
 
     def __str__(self) -> str:
-        return "Historial clinico de: " + str(self.paciente.nombre)
+        return "Historial clinico de: " + str(self.patient.nombre)
 
 class AntecendenteFamiliarPatologico(models.Model):
     historial_clinico = models.OneToOneField(
@@ -26,6 +28,7 @@ class AntecendenteFamiliarPatologico(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
+    step = models.IntegerField(default=1)
     paterno = models.TextField(null=True)
     materno = models.TextField(null=True)
 
@@ -35,15 +38,16 @@ class AntecedentePersonalPatologico(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
+    step = models.IntegerField(default=2)
     enfermedades_infeccionas = models.CharField(max_length=200, default="")
     enfermedades_cronicas = models.CharField(max_length=200, default="")
     intoleracia_glucosa = models.BooleanField(default=False)
     enfermedades_cardiacas_cronarias = models.BooleanField(default=False)
     osteoartritis = models.BooleanField(default=False)
-    enfermedades_vesiculares_hepaticas = models.CharField(max_length=200, default="no")
-    enfermdades_respiratorias = models.CharField(max_length=200, default="no")
-    sustancias_nocivas = models.CharField(max_length=100, default="no")
-    alergias = models.CharField(max_length=100, default="no")
+    enfermedades_vesiculares_hepaticas = models.CharField(max_length=200, default="")
+    enfermdades_respiratorias = models.CharField(max_length=200, default="")
+    sustancias_nocivas = models.CharField(max_length=100, default="")
+    alergias = models.CharField(max_length=100, default="")
 
 class HistorialPsiquiatricoQuirurgico(models.Model):
     historial_clinico = models.OneToOneField(
@@ -51,11 +55,12 @@ class HistorialPsiquiatricoQuirurgico(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
+    step = models.IntegerField(default=3)
     ansiedad = models.BooleanField(default=False)
     depresion = models.BooleanField(default=False)
     dx_psiquiatrico = models.TextField(null=True)
     tratamiento_psicologico = models.BooleanField(default=False)
-    cirugias = models.BooleanField(default=False)
+    cirugias = models.CharField(max_length=50)
 
 class AntecedenteGineticoObsetrico(models.Model):
     historial_clinico = models.OneToOneField(
@@ -63,6 +68,7 @@ class AntecedenteGineticoObsetrico(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
+    step = models.IntegerField(default=4)
     embarazo = models.BooleanField(default=False)
     semamanas_embarazo = models.IntegerField(default=0,  null=True)
     EMBARAZO_CHOICE = (
@@ -94,6 +100,7 @@ class Tratamiento(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
+    step = models.IntegerField(default=5)
     medicamentos = models.TextField(blank=True, default="")
     TOMA_CHOICES = (
         ("Laxantes", "Laxantes"),
@@ -103,7 +110,7 @@ class Tratamiento(models.Model):
     )
     toma = models.CharField(null=True, choices=TOMA_CHOICES, default="", max_length=50)
     tratamiento_haa = models.CharField(max_length=30, default="")
-    suplementos = models.CharField(max_length=30, default="no")
+    suplementos = models.CharField(max_length=30, default="")
 
 class EfectoFarmacoNutricion(models.Model):
     historial_clinico = models.OneToOneField(
@@ -111,6 +118,7 @@ class EfectoFarmacoNutricion(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
+    step = models.IntegerField(default=6)
     cambio_gusto = models.BooleanField(default=False)
     cambio_apetito = models.BooleanField(default=False)
     boca_seca = models.BooleanField(default=False)
@@ -126,6 +134,7 @@ class AntecedentePersonalNoPatologico(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
+    step = models.IntegerField(default=7)
     NACIMIENTO_CHOICES = (
         ("Parto", "Parto"),
         ("Cesarea", "Cesarea")
@@ -135,7 +144,7 @@ class AntecedentePersonalNoPatologico(models.Model):
     semanas_gestacion = models.IntegerField(default=0)
     contacto_momento = models.BooleanField(default=False)
     lactancia_materna = models.BooleanField(default=False)
-    tiempo_lactancia = models.CharField(max_length=10, default="no")
+    tiempo_lactancia = models.CharField(max_length=10, default="")
     exclusiva = models.BooleanField(default=False)
     momento_combinacion = models.CharField(max_length=20, default="")
     formula = models.CharField(max_length=20, default="")
@@ -147,10 +156,11 @@ class SintomasActuales(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
+    step = models.IntegerField(default=8)
     dentadura_completa = models.CharField(max_length=50)
     veces_baño = models.IntegerField(default=0)
     calidad_heces = models.IntegerField(default=1)
-    alteracion_gastrointestinal = models.CharField(max_length=50, default="no")
+    alteracion_gastrointestinal = models.CharField(max_length=50, default="")
 
 class AntecedentesClinicoAnormales(models.Model):
     historial_clinico = models.OneToOneField(
@@ -158,6 +168,7 @@ class AntecedentesClinicoAnormales(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
+    step = models.IntegerField(default=9)
     nombre = models.TextField(blank=True, null=True)
 
 class AntecedentesProblemasNutricion(models.Model):
@@ -166,6 +177,7 @@ class AntecedentesProblemasNutricion(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
+    step = models.IntegerField(default=10)
     subida_peso = models.TextField(max_length=100, blank=True, default="")
     anos_cambio_peso = models.TextField(max_length=20, blank=True, default="")
     dietas_tratamientos = models.TextField(max_length=150, blank=True, default="")
@@ -177,6 +189,7 @@ class ActividadFisica(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
+    step = models.IntegerField(default=11)
     actividad_fisica = models.CharField(max_length=50, default="")
     tipo_ejercicio = models.CharField(max_length=100, default="")
     fecha_inicio = models.DateTimeField(null=True)
@@ -187,9 +200,10 @@ class CronoHabitos(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
+    step = models.IntegerField(default=12)
     hora_dormir = models.TimeField(null=True)
     hora_despertar = models.TimeField(null=True)
-    descripcion_despertares_noche = models.CharField(max_length=200, default='no tiene')
+    descripcion_despertares_noche = models.CharField(max_length=200, default='')
     condiciones = models.TextField(blank=True, max_length=255, null=True)
     ruido_dormir = models.CharField(max_length=100, null=True)
     horas_promedio = models.IntegerField()
@@ -208,6 +222,7 @@ class IndicadoresDieteticos(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
+    step = models.IntegerField(default=13)
     comidas_dia = models.IntegerField()
     quien_prepara_alimentos = models.CharField(max_length=50)
     cambio_radical = models.TextField(blank=True)
@@ -240,6 +255,7 @@ class Recordatorio24Horas(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
+    step = models.IntegerField(default=14)
     despertar = models.CharField(max_length=100)
     desayuno = models.CharField(max_length=100)
     almuerzo = models.CharField(max_length=100)
@@ -254,6 +270,7 @@ class FrecuenciaAlimentos(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
+    step = models.IntegerField(default=15)
     lacteos = models.IntegerField(default=0)
     carnes = models.IntegerField(default=0)
     verduras = models.IntegerField(default=0)
@@ -270,6 +287,7 @@ class Motivacion(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
+    step = models.IntegerField(default=16)
     pregunta1 = models.TextField(blank=True)
     pregunta2 = models.TextField(blank=True)
     pregunta3 = models.TextField(blank=True)
@@ -282,9 +300,11 @@ class Metas(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
+    step = models.IntegerField(default=17)
     corto_plazo = models.TextField(blank=True)
     largo_plazo = models.TextField(blank=True)
     red_apoyo = models.CharField(max_length=100)
     apoyo_familiar = models.TextField(blank=True)
     ventajas_modificacion = models.TextField(blank=True)
     desventajas_modificacion = models.TextField(blank=True)
+    
