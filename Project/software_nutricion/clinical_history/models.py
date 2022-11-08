@@ -22,7 +22,7 @@ class ClinicalHistory(models.Model):
     def __str__(self) -> str:
         return "Historial clinico de: " + str(self.patient.nombre)
 
-class AntecendenteFamiliarPatologico(models.Model):
+class AntecedenteFamiliarPatologico(models.Model):
     historial_clinico = models.OneToOneField(
         ClinicalHistory,
         on_delete=models.CASCADE,
@@ -256,13 +256,13 @@ class Recordatorio24Horas(models.Model):
         primary_key=True,
     )
     step = models.IntegerField(default=14)
-    despertar = models.CharField(max_length=100)
-    desayuno = models.CharField(max_length=100)
-    almuerzo = models.CharField(max_length=100)
-    comida = models.CharField(max_length=100)
-    merienda = models.CharField(max_length=100)
-    cena = models.CharField(max_length=100)
-    dormir = models.CharField(max_length=100)
+    despertar = models.TextField(max_length=200)
+    desayuno = models.TextField(max_length=200)
+    almuerzo = models.TextField(max_length=200)
+    comida = models.TextField(max_length=200)
+    merienda = models.TextField(max_length=200)
+    cena = models.TextField(max_length=200)
+    dormir = models.TextField(max_length=200)
 
 class FrecuenciaAlimentos(models.Model):
     historial_clinico = models.OneToOneField(

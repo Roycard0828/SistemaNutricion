@@ -5,6 +5,13 @@ from .helpers.enumerations import *
 
 class ClinicalHistoryForm(ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(ClinicalHistoryForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            for field in self.fields.keys():
+                self.fields[field].widget.attrs['readonly'] = True
+
     class Meta:
         model = ClinicalHistory
         exclude = ['finished', 'steps']
@@ -16,8 +23,15 @@ class ClinicalHistoryForm(ModelForm):
 
 class AntecedenteFamiliarPatologicoForm(ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(AntecedenteFamiliarPatologicoForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            for field in self.fields.keys():
+                self.fields[field].widget.attrs['readonly'] = True
+
     class Meta:
-        model = AntecendenteFamiliarPatologico
+        model = AntecedenteFamiliarPatologico
         fields = ["paterno", "materno"]
         labels = {
             "paterno": AntecedenteFamiliarPatologicoEnumeration.PATERNO.value,
@@ -25,6 +39,14 @@ class AntecedenteFamiliarPatologicoForm(ModelForm):
         }
 
 class AntecedentePersonalPatologicoForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(AntecedentePersonalPatologicoForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            for field in self.fields.keys():
+                self.fields[field].widget.attrs['readonly'] = True
+
     class Meta:
         model = AntecedentePersonalPatologico
         exclude = ['historial_clinico', 'step']
@@ -41,6 +63,14 @@ class AntecedentePersonalPatologicoForm(ModelForm):
         }
 
 class HistorialPsiquiatricoQuirurgicoForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(HistorialPsiquiatricoQuirurgicoForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            for field in self.fields.keys():
+                self.fields[field].widget.attrs['readonly'] = True
+
     class Meta:
         model = HistorialPsiquiatricoQuirurgico
         exclude = ['historial_clinico', 'step']
@@ -53,6 +83,14 @@ class HistorialPsiquiatricoQuirurgicoForm(ModelForm):
         }
 
 class AntecedenteGineticoObsetricoForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(AntecedenteGineticoObsetricoForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            for field in self.fields.keys():
+                self.fields[field].widget.attrs['readonly'] = True
+
     class Meta:
         model = AntecedenteGineticoObsetrico
         exclude = ['historial_clinico', 'step']
@@ -75,6 +113,14 @@ class AntecedenteGineticoObsetricoForm(ModelForm):
         }
 
 class TratamientoForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(TratamientoForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            for field in self.fields.keys():
+                self.fields[field].widget.attrs['readonly'] = True
+
     class Meta:
         model = Tratamiento
         exclude = ['historial_clinico', 'step']
@@ -86,6 +132,14 @@ class TratamientoForm(ModelForm):
         }
 
 class EfectoFarmacoNutricionForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(EfectoFarmacoNutricionForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            for field in self.fields.keys():
+                self.fields[field].widget.attrs['readonly'] = True
+
     class Meta:
         model = EfectoFarmacoNutricion
         exclude = ['historial_clinico', 'step']
@@ -101,6 +155,14 @@ class EfectoFarmacoNutricionForm(ModelForm):
         }
 
 class AntecedentePersonalNoPatologicoForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(AntecedentePersonalNoPatologicoForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            for field in self.fields.keys():
+                self.fields[field].widget.attrs['readonly'] = True
+
     class Meta:
         model = AntecedentePersonalNoPatologico
         exclude = ['historial_clinico', 'step']
@@ -118,6 +180,14 @@ class AntecedentePersonalNoPatologicoForm(ModelForm):
         }
 
 class SintomasActualesForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(SintomasActualesForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            for field in self.fields.keys():
+                self.fields[field].widget.attrs['readonly'] = True
+
     class Meta:
         model = SintomasActuales
         exclude = ['historial_clinico', 'step']
@@ -129,6 +199,14 @@ class SintomasActualesForm(ModelForm):
         }
 
 class AntecedentesClinicoAnormalesForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(AntecedentesClinicoAnormalesForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            for field in self.fields.keys():
+                self.fields[field].widget.attrs['readonly'] = True
+
     class Meta:
         model = AntecedentesClinicoAnormales
         exclude = ['historial_clinico', 'step']
@@ -137,6 +215,14 @@ class AntecedentesClinicoAnormalesForm(ModelForm):
         }
 
 class AntecedentesProblemasNutricionForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(AntecedentesProblemasNutricionForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            for field in self.fields.keys():
+                self.fields[field].widget.attrs['readonly'] = True
+
     class Meta:
         model = AntecedentesProblemasNutricion
         exclude = [ 'historial_clinico', 'step']
@@ -148,6 +234,14 @@ class AntecedentesProblemasNutricionForm(ModelForm):
         }
 
 class ActividadFisicaForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ActividadFisicaForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            for field in self.fields.keys():
+                self.fields[field].widget.attrs['readonly'] = True
+
     class Meta:
         model = ActividadFisica
         exclude = [ 'historial_clinico', 'step']
@@ -158,6 +252,14 @@ class ActividadFisicaForm(ModelForm):
         }
 
 class CronoHabitosForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(CronoHabitosForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            for field in self.fields.keys():
+                self.fields[field].widget.attrs['readonly'] = True
+
     class Meta:
         model = CronoHabitos
         exclude = ['historial_clinico', 'step']
@@ -179,6 +281,13 @@ class CronoHabitosForm(ModelForm):
         }
 
 class IndicadoresDieteticosForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(IndicadoresDieteticosForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            for field in self.fields.keys():
+                self.fields[field].widget.attrs['readonly'] = True
 
     class Meta:
         model = IndicadoresDieteticos
@@ -212,6 +321,14 @@ class IndicadoresDieteticosForm(ModelForm):
         }
     
 class Recordatorio24HorasForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(Recordatorio24HorasForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            for field in self.fields.keys():
+                self.fields[field].widget.attrs['readonly'] = True
+
     class Meta:
         model = Recordatorio24Horas 
         exclude = ['historial_clinico', 'step']
@@ -226,6 +343,14 @@ class Recordatorio24HorasForm(ModelForm):
         }
 
 class FrecuenciaAlimentosForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(FrecuenciaAlimentosForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            for field in self.fields.keys():
+                self.fields[field].widget.attrs['readonly'] = True
+
     class Meta:
         model = FrecuenciaAlimentos
         exclude = ['historial_clinico', 'step']
@@ -242,6 +367,14 @@ class FrecuenciaAlimentosForm(ModelForm):
         }
 
 class MotivacionForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(MotivacionForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            for field in self.fields.keys():
+                self.fields[field].widget.attrs['readonly'] = True
+
     class Meta:
         model = Motivacion
         exclude = ['historial_clinico', 'step']
@@ -254,6 +387,14 @@ class MotivacionForm(ModelForm):
         }
 
 class MetasForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(MetasForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            for field in self.fields.keys():
+                self.fields[field].widget.attrs['readonly'] = True
+
     class Meta:
         model = Metas
         exclude = ['historial_clinico', 'step']

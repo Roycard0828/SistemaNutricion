@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from http.client import HTTPResponse
 from django.http import HttpResponse
+from io import BytesIO
+from django.template.loader import get_template
+# from xhtml2pdf import pisa
 
 from .forms import *
 
@@ -307,3 +310,60 @@ def metas_view(request, pk):
 
     context = {'form': form, 'name': name}
     return render(request, 'create_forms/clinical_history_form.html', context)
+
+def clinical_history_format_view(request, pk):
+    
+    clinical_history = ClinicalHistory.objects.get(pk=pk)
+
+    clinical_history_form = ClinicalHistoryForm(instance=clinical_history)
+    antecedente_familiar_patologico_form = AntecedenteFamiliarPatologicoForm(instance=clinical_history.antecedentefamiliarpatologico)
+    antecedente_personal_patologico_form = AntecedentePersonalPatologicoForm(instance=clinical_history.antecedentepersonalpatologico)
+    historial_psiquiatrico_quirurgico_form = HistorialPsiquiatricoQuirurgicoForm(instance=clinical_history.historialpsiquiatricoquirurgico)
+    antecedente_ginetico_obsetrico_form = AntecedenteGineticoObsetricoForm(instance=clinical_history.antecedentegineticoobsetrico)
+    tratamiento_form = TratamientoForm(instance=clinical_history.tratamiento)
+    efecto_farmaco_nutricion_form = EfectoFarmacoNutricionForm(instance=clinical_history.efectofarmaconutricion)
+    antecedente_personal_no_patologico_form = AntecedentePersonalNoPatologicoForm(instance=clinical_history.antecedentepersonalnopatologico)
+    sintomas_actuales_form = SintomasActualesForm(instance=clinical_history.sintomasactuales)
+    antecedentes_clinico_anormales_form = AntecedentesClinicoAnormalesForm(instance=clinical_history.antecedentesclinicoanormales)
+    antecedentes_problemas_nutricion_form = AntecedentesProblemasNutricionForm(instance=clinical_history.antecedentesproblemasnutricion)
+    actividad_fisica_form = ActividadFisicaForm(instance=clinical_history.actividadfisica)
+    crono_habitos_form = CronoHabitosForm(instance=clinical_history.cronohabitos)
+    indicadores_dieteticos_form = IndicadoresDieteticosForm(instance=clinical_history.indicadoresdieteticos)
+    recordatorio_24_hrs_form = Recordatorio24HorasForm(instance=clinical_history.recordatorio24horas)
+    frecuencia_alimentos_form = FrecuenciaAlimentosForm(instance=clinical_history.frecuenciaalimentos)
+    motivacion_form = MotivacionForm(instance=clinical_history.motivacion)
+    metas_form = MetasForm(instance=clinical_history.metas)
+
+    context = {'form': clinical_history_form, 
+                'form2': antecedente_familiar_patologico_form,
+                'form3': antecedente_personal_patologico_form,
+                'form4': historial_psiquiatrico_quirurgico_form,
+                'form5': antecedente_ginetico_obsetrico_form,
+                'form6': tratamiento_form,
+                'form7': efecto_farmaco_nutricion_form,
+                'form8': antecedente_personal_no_patologico_form,
+                'form9': sintomas_actuales_form,
+                'form10': antecedentes_clinico_anormales_form,
+                'form11': antecedentes_problemas_nutricion_form,
+                'form12': actividad_fisica_form,
+                'form13': crono_habitos_form,
+                'form14': indicadores_dieteticos_form,
+                'form15': recordatorio_24_hrs_form,
+                'form16': frecuencia_alimentos_form,
+                'form17': motivacion_form,
+                'form18': metas_form}
+
+    return render(request, 'view_forms/clinical_history_format_view.html', context)
+
+def render_pdf(template_src):
+    template = get_template(template_src)
+    html  = template.render()
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return None
+
+def get_clinical_history_pdf_view(request):
+    pdf = render_pdf('view_forms/clinical_history_format_view.html')
+    return HttpResponse(pdf, content_type='application/pdf')

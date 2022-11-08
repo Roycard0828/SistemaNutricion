@@ -19,5 +19,8 @@ urlpatterns = [
     path('create/recordatorio-24_horas/<int:pk>', recordatorio_24_horas_view, name='recordatorio_24_horas'),
     path('create/frecuencia-alimentos/<int:pk>', frecuencia_alimentos_view, name='frecuencia_alimentos'),
     path('create/motivacion/<int:pk>', motivacion_view, name='motivacion'),
-    path('create/metas/<int:pk>', metas_view, name='metas')
+    path('create/metas/<int:pk>', metas_view, name='metas'),
+
+    path('view-clinical-history/<int:pk>', clinical_history_format_view, name='clinical_history_format'),
+    path('download-pdf/', get_clinical_history_pdf_view, name='download_pdf')
 ]

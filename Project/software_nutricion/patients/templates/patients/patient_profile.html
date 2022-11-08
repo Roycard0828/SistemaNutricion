@@ -72,12 +72,14 @@
     </div>
     <br>
     <br>
+    <hr>
+    <br>
     <div>
       <h4>Historial Clinico</h4>
       {% if has_clinical_history %}
         {% if finished %}
           <p>Historial clinico terminado</p>
-          <a href="/patients" class="btn btn-primary btn active" role="button" aria-pressed="true">Ver historial clinico</a>
+          <a href="/clinical_history/view-clinical-history/{{patient.id}}" class="btn btn-primary btn active" role="button" aria-pressed="true">Ver historial clinico</a>
         {% else %}
           <p>Paso actual: {{step}}</p>
           <a href="{% url 'continue_clinical_history' patient.id%}" class="btn btn-primary btn active" role="button" aria-pressed="true">Terminar</a>    
@@ -85,11 +87,12 @@
       {% else %}
         <a href="/clinical_history/create/main" class="btn btn-primary btn active" role="button" aria-pressed="true">Crear historial clinico</a>  
       {% endif %}
+    <br>
+    <hr>
+    <br>
     </div>
-    <br>
-    <br>
     <div>
-        
+        <h4>Citas</h4>
     </div>
 </div>
 
