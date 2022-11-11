@@ -4,8 +4,8 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect
 
 from .models import Patient
-
 from .forms import PatientForm
+from clinical_history.helpers.path_enumerations import PathEnumerations
 
 # Create your views here.
 def create_patient(request):
@@ -25,10 +25,18 @@ def create_patient(request):
 def get_patient(request, pk):
     try:
         patient = Patient.objects.get(pk=pk)
-        context = {'patient':patient}
+        has_clinical_history = hasattr(patient, 'clinicalhistory')
+        if has_clinical_history:
+           step = patient.clinicalhistory.steps
+           finished = patient.clinicalhistory.finished
+        else:
+            step = ''
+            finished = ""
     except:
         return HttpResponse(status=404)
-        
+    
+    context = {'patient':patient,'has_clinical_history':has_clinical_history, 'step':step, 'finished':finished}
+
     return render(request, 'patients/patient_profile.html', context)
 
 def delete_patient(request, pk):
@@ -72,3 +80,14 @@ def get_all_patients(request):
     context = {'patients': patients}
 
     return render(request, 'patients/patients.html', context)
+
+
+def continue_view(request, pk):
+
+    patient = Patient.objects.get(pk=pk)
+    clinical_history = patient.clinicalhistory
+    step = clinical_history.steps
+    enumerations = [x.value for x in list(PathEnumerations)]
+    following = enumerations[step]
+    url = '/clinical_history/create/{}/{}'.format(following, pk)
+    return redirect(url, pk=pk)

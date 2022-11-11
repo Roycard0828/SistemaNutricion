@@ -24,3 +24,14 @@ In this iteration will be developed all the patients logic, including the follow
 - Make the necesary test. 
 - Iteration 1 Finished 3/09/22
 
+### Iteration 2.
+In this iteration will be developed the Clinical History for the patients.
+#### Requierements:
+- a patient will has only one clinical history.
+- The clinical history will follow the current format given by the client
+- The clinical history will be downloaded in PDF format.
+#### Steps:
+- Create all the necesary models (the main model for the clinical history will be split into other models).
+- Create the clinical history view with the necesary methods (create, read, delete, update).
+- Create the clinical history templates following the format given by the client.
+- Make the necesary tests.
