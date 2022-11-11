@@ -35,3 +35,16 @@ In this iteration will be developed the Clinical History for the patients.
 - Create the clinical history view with the necesary methods (create, read, delete, update).
 - Create the clinical history templates following the format given by the client.
 - Make the necesary tests.
+
+### Iteration 3.
+In this iteration will be developed the Appointments logic.
+#### Requirements:
+- The patient can has N appointments assigned that will be displayed in the patient profile.
+- The appointments to be made will be displayed on a TodoList oder by date.
+- The appintments may be finished, canceled or postponed.
+- Each appointment will has a medical prescription assigned.
+#### Steps:
+- Create the appointment and prescription models.
+- Create the appointment views with the necesary methods (create, update, delete, read) for appointment and prescription
+- Create the necesary templates (TodoList view) and display in the patients profile.
+- Make necesary tests.
