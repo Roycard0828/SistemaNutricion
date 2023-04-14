@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'patients.apps.PatientsConfig',
     'clinical_history.apps.ClinicalHistoryConfig',
+    'appointment.apps.AppointmentConfig',
 
     "crispy_forms",
     "crispy_bootstrap5",   

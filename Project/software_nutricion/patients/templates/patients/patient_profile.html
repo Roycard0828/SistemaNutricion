@@ -1,6 +1,8 @@
 {% extends 'main.html' %}
+{% load static %}
 {% block content %}
 
+<link rel="stylesheet" href="../../../static/css/project/patient_profile.css">
 <div class="container-lg">
     
     <a href="{% url 'patients'%}" class="btn btn-dark active" role="button" aria-pressed="true">Regresar</a>
@@ -87,12 +89,58 @@
       {% else %}
         <a href="/clinical_history/create/main" class="btn btn-primary btn active" role="button" aria-pressed="true">Crear historial clinico</a>  
       {% endif %}
+      <br>
+      <br>
+      <div class="steps">
+        <p>Actualizar informacion del historial clinico</p>
+        <a href="{% url 'antecedente_familiar_patologico' patient.id%}" class="btn btn-primary btn disabled step" role="button" aria-pressed="true">Antecedente Familiar Pa.</a>
+        <a href="{% url 'antecedente_personal_patologico' patient.id%}" class="btn btn-primary btn active step" role="button" aria-pressed="true">Antecedente Personal Pa.</a>
+        <a href="{% url 'historial_psiquiatrico_quirurgico' patient.id%}" class="btn btn-primary btn active step" role="button" aria-pressed="true">Historial Psiquiatrico Quirurgico.</a>
+        <a href="{% url 'antecedente_ginetico_obsetrico' patient.id%}" class="btn btn-primary btn active step" role="button" aria-pressed="true">Antecedente Ginetico Obs.</a>
+        <a href="{% url 'tratamiento' patient.id%}" class="btn btn-primary btn active step" role="button" aria-pressed="true">Tratamiento</a>
+        <a href="{% url 'efecto_farmaco_nutricion' patient.id%}" class="btn btn-primary btn active step" role="button" aria-pressed="true">Efecto Farmaco Nutricion</a>
+        <a href="{% url 'antecedente_personal_no_patologico' patient.id%}" class="btn btn-primary btn active step" role="button" aria-pressed="true">Antecedente Personal No Pa.</a>
+        <a href="{% url 'sintomas_actuales' patient.id%}" class="btn btn-primary btn active step" role="button" aria-pressed="true">Sintomas Actuales.</a>
+        <a href="{% url 'antecedentes_clinico_anormales' patient.id%}" class="btn btn-primary btn active step" role="button" aria-pressed="true">Antecedentes Clinicos Anormales.</a>
+        <a href="{% url 'antecedentes_problemas_nutricion' patient.id%}" class="btn btn-primary btn active step" role="button" aria-pressed="true">Antecedentes Problemas Nutricion.</a>
+        <a href="{% url 'actividad_fisica' patient.id%}" class="btn btn-primary btn active step" role="button" aria-pressed="true">Actividad Fisica.</a>
+        <a href="{% url 'crono_habitos' patient.id%}" class="btn btn-primary btn active step" role="button" aria-pressed="true">Crono Habitos.</a>
+        <a href="{% url 'indicadores_dieteticos' patient.id%}" class="btn btn-primary btn active step" role="button" aria-pressed="true">Indicadores Dieteticos.</a>
+        <a href="{% url 'recordatorio_24_horas' patient.id%}" class="btn btn-primary btn active step" role="button" aria-pressed="true">Recordatorio 24 Hrs.</a>
+        <a href="{% url 'antecedentes_clinico_anormales' patient.id%}" class="btn btn-primary btn active step" role="button" aria-pressed="true">Frecuencia Alimentos.</a>
+        <a href="{% url 'motivacion' patient.id%}" class="btn btn-primary btn active step" role="button" aria-pressed="true">Motivacion.</a>
+        <a href="{% url 'metas' patient.id%}" class="btn btn-primary btn active step" role="button" aria-pressed="true">Metas.</a>
+
+      </div>
     <br>
     <hr>
     <br>
     </div>
     <div>
         <h4>Citas</h4>
+        <br>
+        <table class="table">
+          <caption>Registro de citas</caption>
+          <thead class="thead-dark">
+            <th scope="col">Fecha</th>
+            <th scope="col">Hora</th>
+            <th scope="col">Observaciones</th>
+            <th></th>
+          </thead>
+          <tbody>
+            {% for appointment in appointments %}    
+              <tr>
+                <td>{{appointment.fecha}}</td>
+                <td>{{appointment.hora}}</td>
+                <td>{{appointment.observaciones}}</td>
+                <td><a href="/appointments/get-appointment/{{appointment.id}}" role="button" class="btn btn-primary btn active">Ver</a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>        
+        <a href="/appointments/create-appointment/{{patient.id}}" class="btn btn-primary btn active" role="button" aria-pressed="true">Crear cita</a>
+        <br>
+        <br>
     </div>
 </div>
 

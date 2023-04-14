@@ -8,6 +8,7 @@ from django.template.loader import get_template
 from .forms import *
 
 def save_form(form, pk):
+    #Guardar las pasos del historial y vincularlos con el historial clinico
     clinical_history = ClinicalHistory.objects.get(patient_id=pk)
     formulario = form.save(commit=False)
     formulario.historial_clinico = clinical_history
@@ -27,7 +28,7 @@ def clinical_history_view(request):
             id = clinical_history.patient_id
             return redirect('antecedente_familiar_patologico', pk=id)
         else:
-            return HTTPResponse(status=404)
+            return HttpResponse(status=404)
 
     context = {'form': form}
     return render(request, 'create_forms/clinical_history_form.html', context)
@@ -37,21 +38,29 @@ def antecedente_familiar_patologico_view(request, pk):
     form = AntecedenteFamiliarPatologicoForm()
     clinical_id = pk 
 
-    if request.method == 'POST':
-        form = AntecedenteFamiliarPatologicoForm(request.POST)
-        if form.is_valid():
-            save_form(form, clinical_id)
+    if request.method == 'POST':    
+        form = AntecedenteFamiliarPatologicoForm(data=request.POST, update=False)        
+        if form.is_valid():            
+            save_form(form, clinical_id)            
             return redirect('antecedente_personal_patologico', pk=clinical_id)
-        else:
-            return HTTPResponse(status=404)
-
-    context = {'form': form, 'name': name}
+        else:           
+            return HttpResponse(status=404)
+    
+    elif request.method == 'GET':
+        try:
+            #Update the data
+            instance = AntecedenteFamiliarPatologico.objects.get(pk=clinical_id)
+            form = AntecedenteFamiliarPatologicoForm(update=True, instance=instance)
+            action = "update"
+        except:
+            action = "create"
+        
+    context = {'form': form, 'name': name, 'action': action}
     return render(request, 'create_forms/clinical_history_form.html', context)
 
 def antecedente_personal_patologico_view(request, pk):
     name = "Antecedente Personal Patologico"
-    form = AntecedentePersonalPatologicoForm()
-    clinical_id = pk 
+    clinical_id = pk
 
     if request.method == 'POST':
         form = AntecedentePersonalPatologicoForm(request.POST)
@@ -61,13 +70,21 @@ def antecedente_personal_patologico_view(request, pk):
         else:
             return HTTPResponse(status=404)
 
-    context = {'form': form, 'name': name}
+    elif request.method == 'GET':
+        try:
+            instance = AntecedentePersonalPatologico.objects.get(pk=clinical_id)
+            form = AntecedentePersonalPatologicoForm(update=True, instance=instance)
+            action = "update"
+        except:
+            action = "create"
+            form = AntecedentePersonalPatologicoForm()            
+    
+    context = {'form': form, 'name': name, 'action': action}
     return render(request, 'create_forms/clinical_history_form.html', context)
 
 def historial_psiquiatrico_quirurgico_view(request, pk):
-    name = "Historial Psiquiatrico y Quirurgico"
-    form = HistorialPsiquiatricoQuirurgicoForm()
-    clinical_id = pk 
+    name = "Historial Psiquiatrico y Quirurgico"    
+    clinical_id = pk
 
     if request.method == 'POST':
         form = HistorialPsiquiatricoQuirurgicoForm(request.POST)
@@ -76,8 +93,17 @@ def historial_psiquiatrico_quirurgico_view(request, pk):
             return redirect('antecedente_ginetico_obsetrico', pk=clinical_id)
         else:
             return HTTPResponse(status=404)
+    
+    elif request.method == 'GET':
+        try:
+            instance = HistorialPsiquiatricoQuirurgico.objects.get(pk+clinical_id)
+            form = HistorialPsiquiatricoQuirurgicoForm(update=True, instance=instance)
+            action = "update"
+        except:
+            form = HistorialPsiquiatricoQuirurgicoForm()
+            action = "create"
 
-    context = {'form': form, 'name': name}
+    context = {'form': form, 'name': name, 'action': action}
     return render(request, 'create_forms/clinical_history_form.html', context)
 
 def antecedente_ginetico_obsetrico_view(request, pk):
@@ -92,13 +118,20 @@ def antecedente_ginetico_obsetrico_view(request, pk):
             return redirect('tratamiento', pk=clinical_id)
         else:
             return HTTPResponse(status=404)
+    elif request.method == 'GET':
+        try:            
+            instance = AntecedenteGineticoObsetrico.objects.get(pk=pk)
+            form = AntecedenteGineticoObsetricoForm(instance=instance, update_mood=True)
+            action = "update"
+        except:
+            form = AntecedenteGineticoObsetricoForm()
+            action = "create"
 
-    context = {'form': form, 'name': name}
+    context = {'form': form, 'name': name, 'action': action}
     return render(request, 'create_forms/clinical_history_form.html', context)
     
 def tratamiento_view(request, pk):
     name = "Tratamiento"
-    form = TratamientoForm()
     clinical_id = pk 
 
     if request.method == 'POST':
@@ -109,12 +142,20 @@ def tratamiento_view(request, pk):
         else:
             return HTTPResponse(status=404)
 
-    context = {'form': form, 'name': name}
+    elif request.method == 'GET':
+        try:
+            instance = Tratamiento.objects.get(pk=clinical_id)
+            form = TratamientoForm(update=True, instance=instance)
+            action = "update"
+        except:
+            form = TratamientoForm()
+            action = "create"
+
+    context = {'form': form, 'name': name, 'action': action}
     return render(request, 'create_forms/clinical_history_form.html', context)
 
 def efecto_farmaco_nutricion_view(request, pk):
     name = "Efecto de farmacos en el estado de nutricion"
-    form = EfectoFarmacoNutricionForm()
     clinical_id = pk 
 
     if request.method == 'POST':
@@ -124,13 +165,21 @@ def efecto_farmaco_nutricion_view(request, pk):
             return redirect('antecedente_personal_no_patologico', pk=clinical_id)
         else:
             return HTTPResponse(status=404)
+    
+    elif request.method == 'GET':
+        try:
+            instance = EfectoFarmacoNutricion.objects.get(pk=clinical_id)
+            form = EfectoFarmacoNutricionForm(update=True, instance=instance)
+            action = "update"
+        except:
+            form = EfectoFarmacoNutricionForm()
+            action = "create"
 
-    context = {'form': form, 'name': name}
+    context = {'form': form, 'name': name, 'action': action}
     return render(request, 'create_forms/clinical_history_form.html', context)
 
 def antecedente_personal_no_patologico_view(request, pk):
     name = "Antecedentes personales no patologicos"
-    form = AntecedentePersonalNoPatologicoForm()
     clinical_id = pk 
 
     if request.method == 'POST':
@@ -141,12 +190,20 @@ def antecedente_personal_no_patologico_view(request, pk):
         else:
             return HTTPResponse(status=404)
 
-    context = {'form': form, 'name': name}
+    elif request.method == 'GET':
+        try:
+            instance = AntecedentePersonalNoPatologico.objects.get(pk=clinical_id)
+            form = AntecedentePersonalNoPatologicoForm(update=True, instance=instance)
+            action = "update"
+        except:
+            form = AntecedentePersonalNoPatologicoForm()
+            action = "create"
+
+    context = {'form': form, 'name': name, 'action': action}
     return render(request, 'create_forms/clinical_history_form.html', context)
 
 def sintomas_actuales_view(request, pk):
     name = "Sintomas actuales"
-    form = SintomasActualesForm()
     clinical_id = pk 
 
     if request.method == 'POST':
@@ -157,12 +214,20 @@ def sintomas_actuales_view(request, pk):
         else:
             return HTTPResponse(status=404)
 
-    context = {'form': form, 'name': name}
+    elif request.method == 'GET':
+        try:
+            instance = SintomasActuales.objects.get(pk=clinical_id)
+            form = SintomasActualesForm(update=True, instance=instance)
+            action = "update"
+        except:
+            form = SintomasActualesForm()
+            action = "create"
+
+    context = {'form': form, 'name': name, 'action': action}
     return render(request, 'create_forms/clinical_history_form.html', context)
 
 def antecedentes_clinico_anormales_view(request, pk):
     name = "Laboratorios clinicos anormales"
-    form = AntecedentesClinicoAnormalesForm()
     clinical_id = pk 
 
     if request.method == 'POST':
@@ -172,13 +237,21 @@ def antecedentes_clinico_anormales_view(request, pk):
             return redirect('antecedentes_problemas_nutricion', pk=clinical_id)
         else:
             return HTTPResponse(status=404)
+    
+    elif request.method == 'GET':
+        try:
+            instance = AntecedentesClinicoAnormales.objects.get(pk=clinical_id)
+            form = AntecedentesClinicoAnormalesForm(update=True, instance=instance)
+            action = "update"
+        except:
+            form = AntecedentesClinicoAnormalesForm()
+            action = "create"
 
-    context = {'form': form, 'name': name}
+    context = {'form': form, 'name': name, 'action': action}
     return render(request, 'create_forms/clinical_history_form.html', context)
 
 def antecedentes_problemas_nutricion_view(request, pk):
     name = "Antecedentes de problemas relacionados con la nutricion"
-    form = AntecedentesProblemasNutricionForm()
     clinical_id = pk 
 
     if request.method == 'POST':
@@ -189,12 +262,20 @@ def antecedentes_problemas_nutricion_view(request, pk):
         else:
             return HTTPResponse(status=404)
 
-    context = {'form': form, 'name': name}
+    elif request.method == 'GET':
+        try:
+            instance = AntecedentesProblemasNutricion.objects.get(pk=clinical_id)
+            form = AntecedentesProblemasNutricionForm(update=True, instance=instance)
+            action = "update"
+        except:
+            form = AntecedentesProblemasNutricionForm()
+            action = "create"
+
+    context = {'form': form, 'name': name, 'action': action}
     return render(request, 'create_forms/clinical_history_form.html', context)
 
 def actividad_fisica_view(request, pk):
     name = "Actividad fisica"
-    form = ActividadFisicaForm()
     clinical_id = pk 
 
     if request.method == 'POST':
@@ -205,12 +286,20 @@ def actividad_fisica_view(request, pk):
         else:
             return HttpResponse("Something went wrong")
 
-    context = {'form': form, 'name': name}
+    elif request.method == 'GET':
+        try:
+            instance = ActividadFisica.objects.get(pk=clinical_id)
+            form = ActividadFisicaForm(update=True, instance=instance)
+            action = "update"
+        except:
+            form = ActividadFisicaForm()
+            action = "create"
+
+    context = {'form': form, 'name': name, 'action': action}
     return render(request, 'create_forms/clinical_history_form.html', context)
 
 def crono_habitos_view(request, pk):
     name = "Crono habitos"
-    form = CronoHabitosForm()
     clinical_id = pk 
 
     if request.method == 'POST':
@@ -221,12 +310,20 @@ def crono_habitos_view(request, pk):
         else:
             return HTTPResponse(status=404)
 
-    context = {'form': form, 'name': name}
+    elif request.method == 'GET':
+        try:
+            instance = CronoHabitos.objects.get(pk=clinical_id)
+            form = CronoHabitosForm(update=True, instance=instance)
+            action = "update"
+        except:
+            form = CronoHabitosForm()
+            action = "create"
+
+    context = {'form': form, 'name': name, 'action': action}
     return render(request, 'create_forms/clinical_history_form.html', context)
 
 def indicadores_dieteticos_view(request, pk):
     name = "Indicadores dieteticos"
-    form = IndicadoresDieteticosForm()
     clinical_id = pk 
 
     if request.method == 'POST':
@@ -237,12 +334,20 @@ def indicadores_dieteticos_view(request, pk):
         else:
             return HTTPResponse(status=404)
 
-    context = {'form': form, 'name': name}
+    elif request.method == 'GET':
+        try:
+            instance = IndicadoresDieteticos.objects.get(pk=clinical_id)
+            form = IndicadoresDieteticosForm(update=True, instance=instance)
+            action = "update"
+        except:
+            form = IndicadoresDieteticosForm()
+            action = "create"
+
+    context = {'form': form, 'name': name, 'action': action}
     return render(request, 'create_forms/clinical_history_form.html', context)
 
 def recordatorio_24_horas_view(request, pk):
     name = "Recordatorio de 24 horas"
-    form = Recordatorio24HorasForm()
     clinical_id = pk 
 
     if request.method == 'POST':
@@ -253,12 +358,20 @@ def recordatorio_24_horas_view(request, pk):
         else:
             return HTTPResponse(status=404)
 
-    context = {'form': form, 'name': name}
+    elif request.method == 'GET':
+        try:
+            instance = Recordatorio24Horas.objects.get(pk=clinical_id)
+            form = Recordatorio24HorasForm(update=True, instance=instance)
+            action = "update"
+        except:
+            form = Recordatorio24HorasForm()
+            action = "create"
+
+    context = {'form': form, 'name': name, 'action': action}
     return render(request, 'create_forms/clinical_history_form.html', context)
 
 def frecuencia_alimentos_view(request, pk):
     name = "Frecuencia de alimentos"
-    form = FrecuenciaAlimentosForm()
     clinical_id = pk 
 
     if request.method == 'POST':
@@ -269,12 +382,20 @@ def frecuencia_alimentos_view(request, pk):
         else:
             return HTTPResponse(status=404)
 
-    context = {'form': form, 'name': name}
+    elif request.method == 'GET':
+        try:
+            instance = FrecuenciaAlimentos.objects.get(pk=clinical_id)
+            form = FrecuenciaAlimentosForm(update=True, instance=instance)
+            action = "update"
+        except:
+            form = FrecuenciaAlimentosForm()
+            action = "create"
+
+    context = {'form': form, 'name': name, 'action': action}
     return render(request, 'create_forms/clinical_history_form.html', context)
 
 def motivacion_view(request, pk):
     name = "Motivacion"
-    form = MotivacionForm()
     clinical_id = pk 
 
     if request.method == 'POST':
@@ -285,12 +406,21 @@ def motivacion_view(request, pk):
         else:
             return HTTPResponse(status=404)
 
-    context = {'form': form, 'name': name}
+    elif request.method == 'GET':
+        try:
+            # 
+            instance = Motivacion.objects.get(pk=clinical_id)
+            form = MotivacionForm(update=True, instance=instance)
+            action = "update"
+        except:
+            form = MotivacionForm()
+            action = "create"
+
+    context = {'form': form, 'name': name, 'action': action}
     return render(request, 'create_forms/clinical_history_form.html', context)
 
 def metas_view(request, pk):
     name = "Metas"
-    form = MetasForm()
     clinical_id = pk 
 
     if request.method == 'POST':
@@ -307,8 +437,17 @@ def metas_view(request, pk):
             return redirect(url)
         else:
             return HTTPResponse(status=404)
+    
+    elif request.method == 'GET':
+        try:
+            instance = Metas.objects.get(pk=clinical_id)
+            form = MetasForm(update=True, instance=instance)
+            action = "update"
+        except:
+            form = MetasForm()
+            action = "create"
 
-    context = {'form': form, 'name': name}
+    context = {'form': form, 'name': name, 'action': action}
     return render(request, 'create_forms/clinical_history_form.html', context)
 
 def clinical_history_format_view(request, pk):

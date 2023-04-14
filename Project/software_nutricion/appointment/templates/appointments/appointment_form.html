@@ -1,4 +1,4 @@
-{% extends 'main_clinical_history.html' %}
+{% extends 'files_format.html'%}
 
 {% block content %}
 
@@ -9,15 +9,10 @@
         <input class="btn btn-dark" type="button" onclick="history.back()" name="volver atrás" value="Regresar">
         <br>
         <hr>
-        <h3>{{name}}</h3>
+        <h3>Cita medica</h3>
         <div class="form-group">
             {{form|crispy}}
-            {% if action == "update" %}
-                <input class="btn btn-primary" type="submit" value="Actualizar"/>
-            {% else %}
-                <input class="btn btn-primary" type="submit" value="Guardar"/>
-            {% endif %}
-            
+            <input class="btn btn-primary" type="submit" value="Guardar"/>
             <br>
         </div>        
     </form>

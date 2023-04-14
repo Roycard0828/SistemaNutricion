@@ -27,15 +27,17 @@ def get_patient(request, pk):
         patient = Patient.objects.get(pk=pk)
         has_clinical_history = hasattr(patient, 'clinicalhistory')
         if has_clinical_history:
-           step = patient.clinicalhistory.steps
-           finished = patient.clinicalhistory.finished
+            step = patient.clinicalhistory.steps
+            finished = patient.clinicalhistory.finished
         else:
             step = ''
             finished = ""
+
+        appointments = patient.appointment_set.all()
     except:
         return HttpResponse(status=404)
     
-    context = {'patient':patient,'has_clinical_history':has_clinical_history, 'step':step, 'finished':finished}
+    context = {'patient':patient,'has_clinical_history':has_clinical_history, 'step':step, 'finished':finished, 'appointments': appointments}
 
     return render(request, 'patients/patient_profile.html', context)
 
@@ -83,7 +85,7 @@ def get_all_patients(request):
 
 
 def continue_view(request, pk):
-
+    #Continuar con el historial clinico
     patient = Patient.objects.get(pk=pk)
     clinical_history = patient.clinicalhistory
     step = clinical_history.steps
@@ -91,3 +93,4 @@ def continue_view(request, pk):
     following = enumerations[step]
     url = '/clinical_history/create/{}/{}'.format(following, pk)
     return redirect(url, pk=pk)
+

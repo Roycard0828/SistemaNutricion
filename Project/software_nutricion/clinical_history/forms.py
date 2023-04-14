@@ -23,10 +23,11 @@ class ClinicalHistoryForm(ModelForm):
 
 class AntecedenteFamiliarPatologicoForm(ModelForm):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, update=False, *args, **kwargs):
         super(AntecedenteFamiliarPatologicoForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
+        print("Update mood" , update)
+        if instance and instance.pk and not update:
             for field in self.fields.keys():
                 self.fields[field].widget.attrs['readonly'] = True
 
@@ -39,11 +40,13 @@ class AntecedenteFamiliarPatologicoForm(ModelForm):
         }
 
 class AntecedentePersonalPatologicoForm(ModelForm):
+    
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, update_mood=False, *args, **kwargs):
         super(AntecedentePersonalPatologicoForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
+        update_mood = getattr(self, 'update_mood', False)
+        if instance and instance.pk and not update_mood:
             for field in self.fields.keys():
                 self.fields[field].widget.attrs['readonly'] = True
 
@@ -64,10 +67,10 @@ class AntecedentePersonalPatologicoForm(ModelForm):
 
 class HistorialPsiquiatricoQuirurgicoForm(ModelForm):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, update=False, *args, **kwargs):
         super(HistorialPsiquiatricoQuirurgicoForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
+        if instance and instance.pk and not update:
             for field in self.fields.keys():
                 self.fields[field].widget.attrs['readonly'] = True
 
@@ -84,10 +87,10 @@ class HistorialPsiquiatricoQuirurgicoForm(ModelForm):
 
 class AntecedenteGineticoObsetricoForm(ModelForm):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, update=False, *args, **kwargs):
         super(AntecedenteGineticoObsetricoForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
+        if instance and instance.pk and not update:
             for field in self.fields.keys():
                 self.fields[field].widget.attrs['readonly'] = True
 
@@ -114,10 +117,10 @@ class AntecedenteGineticoObsetricoForm(ModelForm):
 
 class TratamientoForm(ModelForm):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, update=False,*args, **kwargs):
         super(TratamientoForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
+        if instance and instance.pk and not update:
             for field in self.fields.keys():
                 self.fields[field].widget.attrs['readonly'] = True
 
@@ -133,10 +136,10 @@ class TratamientoForm(ModelForm):
 
 class EfectoFarmacoNutricionForm(ModelForm):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, update=False,*args, **kwargs):
         super(EfectoFarmacoNutricionForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
+        if instance and instance.pk and not update:
             for field in self.fields.keys():
                 self.fields[field].widget.attrs['readonly'] = True
 
@@ -156,10 +159,10 @@ class EfectoFarmacoNutricionForm(ModelForm):
 
 class AntecedentePersonalNoPatologicoForm(ModelForm):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, update=False,*args, **kwargs):
         super(AntecedentePersonalNoPatologicoForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
+        if instance and instance.pk and not update:
             for field in self.fields.keys():
                 self.fields[field].widget.attrs['readonly'] = True
 
@@ -181,10 +184,10 @@ class AntecedentePersonalNoPatologicoForm(ModelForm):
 
 class SintomasActualesForm(ModelForm):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, update=False,*args, **kwargs):
         super(SintomasActualesForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
+        if instance and instance.pk and not update:
             for field in self.fields.keys():
                 self.fields[field].widget.attrs['readonly'] = True
 
@@ -200,10 +203,10 @@ class SintomasActualesForm(ModelForm):
 
 class AntecedentesClinicoAnormalesForm(ModelForm):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, update=False, *args, **kwargs):
         super(AntecedentesClinicoAnormalesForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
+        if instance and instance.pk and not update:
             for field in self.fields.keys():
                 self.fields[field].widget.attrs['readonly'] = True
 
@@ -216,10 +219,10 @@ class AntecedentesClinicoAnormalesForm(ModelForm):
 
 class AntecedentesProblemasNutricionForm(ModelForm):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, update=False,*args, **kwargs):
         super(AntecedentesProblemasNutricionForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
+        if instance and instance.pk and not update:
             for field in self.fields.keys():
                 self.fields[field].widget.attrs['readonly'] = True
 
@@ -235,10 +238,10 @@ class AntecedentesProblemasNutricionForm(ModelForm):
 
 class ActividadFisicaForm(ModelForm):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, update=False, *args, **kwargs):
         super(ActividadFisicaForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
+        if instance and instance.pk and not update:
             for field in self.fields.keys():
                 self.fields[field].widget.attrs['readonly'] = True
 
@@ -253,10 +256,10 @@ class ActividadFisicaForm(ModelForm):
 
 class CronoHabitosForm(ModelForm):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, update=False, *args, **kwargs):
         super(CronoHabitosForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
+        if instance and instance.pk and not update:
             for field in self.fields.keys():
                 self.fields[field].widget.attrs['readonly'] = True
 
@@ -282,10 +285,10 @@ class CronoHabitosForm(ModelForm):
 
 class IndicadoresDieteticosForm(ModelForm):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, update=False, *args, **kwargs):
         super(IndicadoresDieteticosForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
+        if instance and instance.pk and not update:
             for field in self.fields.keys():
                 self.fields[field].widget.attrs['readonly'] = True
 
@@ -322,10 +325,10 @@ class IndicadoresDieteticosForm(ModelForm):
     
 class Recordatorio24HorasForm(ModelForm):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, update=False, *args, **kwargs):
         super(Recordatorio24HorasForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
+        if instance and instance.pk and not update:
             for field in self.fields.keys():
                 self.fields[field].widget.attrs['readonly'] = True
 
@@ -344,10 +347,10 @@ class Recordatorio24HorasForm(ModelForm):
 
 class FrecuenciaAlimentosForm(ModelForm):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, update=False, *args, **kwargs):
         super(FrecuenciaAlimentosForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
+        if instance and instance.pk and not update:
             for field in self.fields.keys():
                 self.fields[field].widget.attrs['readonly'] = True
 
@@ -368,10 +371,10 @@ class FrecuenciaAlimentosForm(ModelForm):
 
 class MotivacionForm(ModelForm):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, update=False, *args, **kwargs):
         super(MotivacionForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
+        if instance and instance.pk and not update:
             for field in self.fields.keys():
                 self.fields[field].widget.attrs['readonly'] = True
 
@@ -388,10 +391,10 @@ class MotivacionForm(ModelForm):
 
 class MetasForm(ModelForm):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, update=False, *args, **kwargs):
         super(MetasForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
+        if instance and instance.pk and not update:
             for field in self.fields.keys():
                 self.fields[field].widget.attrs['readonly'] = True
 
