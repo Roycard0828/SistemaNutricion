@@ -1,0 +1,65 @@
+{% extends 'files_format.html' %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+<div class="container">
+    <h2>Historial clinico</h2>
+    <hr>
+    <br>
+    {{form|crispy}}
+    <hr>
+    <h3>Antecedente familiar patologico</h3>
+    {{form2|crispy}}
+    <hr>
+    <h3>Antecedente personal patologico</h3>
+    {{form3|crispy}}
+    <hr>
+    <h3>Historial psquiatrico y quirurgico</h3>
+    {{form4|crispy}}
+    <hr>
+    <h3>Antecedente ginetico obsetrico</h3>
+    {{form5|crispy}}
+    <hr>
+    <h3>Tratamiento</h3>
+    {{form6|crispy}}
+    <hr>
+    <h3>Efecto de farmaco en el estado de nutricion</h3>
+    {{form7|crispy}}
+    <hr>
+    <h3>Antecedentes personales no patologicos</h3>
+    {{form8|crispy}}
+    <hr>
+    <h3>Sintomas actuales</h3>
+    {{form9|crispy}}
+    <hr>
+    <h3>Laboratorios clinicos anormales</h3>
+    {{form10|crispy}}
+    <hr>
+    <h3>Antecedentes de problemas relacionados con la nutricion</h3>
+    {{form11|crispy}}
+    <hr>
+    <h3>Actividad fisica</h3>
+    {{form12|crispy}}
+    <hr>
+    <h3>Crono habitos</h3>
+    {{form13|crispy}}
+    <hr>
+    <h3>Indicadores dieteticos</h3>
+    {{form14|crispy}}
+    <hr>
+    <h3>Recordatorio de 24 horas</h3>
+    {{form15|crispy}}
+    <hr>
+    <h3>Frecuencia de alimentos</h3>
+    {{form16|crispy}}
+    <hr>
+    <h3>Motivacion</h3>
+    {{form17|crispy}}
+    <hr>
+    <h3>Metas</h3>
+    {{form18|crispy}}    
+
+</div>
+{% endblock content %}

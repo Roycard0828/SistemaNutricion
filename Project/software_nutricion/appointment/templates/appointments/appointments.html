@@ -1,0 +1,33 @@
+{% extends 'main.html'%}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+<div class="container">
+    <h2>Citas</h2>
+    <table id="appoinments-table" class="order-table table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Nombre paciente</th>
+                <th>Fecha</th>
+                <th></th>
+                <th></th>                             
+            </tr>
+        </thead>
+        <tbody>
+            {% for appointment in appointments %}
+                <tr>
+                    <td>{{appointment.patient.nombre}} {{appointment.patient.apellidos}}</td>
+                    <td>{{appointment.fecha}}</td>                    
+                    <td>
+                        <a href="{% url 'get_appointment' appointment.id %}" class="btn btn-info active" role="button" aria-pressed="true">Ver</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'update_appointment' appointment.id %}" class="btn btn-secondary active" role="button" aria-pressed="true">Actualizar</a>
+                    </td>                    
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content%}

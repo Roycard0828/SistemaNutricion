@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static%}
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">  
+    <script src="{% static 'bootstrap.min.js' %}"></script>  
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-auto">
+                {% load static%}
+                <img src="{%static 'images/Logo.jpeg'%}"
+                    height="100"
+                    loading="lazy"
+                    style="margin-top: -1px;"
+                >            
+            </div>
+            <div class="col-md-auto">
+                <h2>Nutriologa Clinica Katia Cueto Ameca</h2>
+            </div>
+        </div>
+    </div>
+    <br>
+    {% block content %}
+
+    {% endblock content%}
+</body>
+</html>

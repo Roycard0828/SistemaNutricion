@@ -1,0 +1,20 @@
+{% extends 'files_format.html'%}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+<div class="container">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input class="btn btn-dark" type="button" onclick="history.back()" name="volver atrás" value="Regresar">
+        <br>
+        <hr>
+        <h3>Receta</h3>
+        <div class="form-group">
+            {{form|crispy}}
+            <input class="btn btn-primary" type="submit" value="Guardar"/>
+            <br>
+        </div>        
+    </form>
+</div>
+{% endblock content%}

@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            {% load static%}
+            <img src="{%static 'images/Logo.jpeg'%}"
+                height="100"
+                loading="lazy"
+                style="margin-top: -1px;"
+                >
+        </a>
+        <a href="/" class="navbar-brand">
+            <h1>Sistema Nutricion</h1>
+        </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-mdb-toggle="collapse"
+        data-mdb-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">          
+          <li class="nav-item">
+            <a class="nav-link" href="/appointments">Consultas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/patients">Pacientes</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>

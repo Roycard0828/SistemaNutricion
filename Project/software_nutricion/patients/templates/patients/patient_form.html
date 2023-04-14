@@ -1,0 +1,19 @@
+{% extends 'main.html' %}
+{% block content %}
+
+{% load crispy_forms_tags %}
+<div class="container">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input class="btn btn-dark" type="button" onclick="history.back()" name="volver atrás" value="Regresar">
+        <br>
+        <hr>
+        <div class="form-group">
+            {{form|crispy}}
+            <input class="btn btn-primary" type="submit" value="Agregar"/>
+            <br>
+        </div>        
+    </form>
+</div>
+
+{% endblock content %}
